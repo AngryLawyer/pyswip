@@ -270,12 +270,18 @@ class TestIssues(unittest.TestCase):
         p.assertz("father(son(miki),kur)")
         p.assertz("father(son(kiwi),kur)")
         p.assertz("father(son(wiki),kur)")
-        
+
         soln = [s["Y"] for s in p.query("friend(john,Y), father(Y,kur)",
                                          maxresult=1)]
         self.assertEqual(soln[0], "son(miki)")
 
-        
+    def test_issue_unify_string_list(self):
+        from pyswip import Prolog
+        p = Prolog()
+        p.assertz('name(john,"JOHN")')
+        soln = [s["X"] for s in p.query("name(john,X)")]
+        self.assertEqual(result[0]['X'],'JOHN')
+
+
 if __name__ == "__main__":
     unittest.main()
-    
